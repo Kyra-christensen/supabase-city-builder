@@ -67,3 +67,36 @@ export async function createDefaultCity() {
     
     return checkError(response);
 }
+
+export async function updateWaterfront(newWaterId) {
+    const user = await getUser();
+    console.log(newWaterId, user.user.id);
+    const response = await client
+        .from('cities')
+        .update({ waterfront_id: newWaterId })
+        .match({ user_id: user.user.id })
+        .single();
+    return checkError(response);
+}
+
+export async function updateSkyline(newSkylineId) {
+    const user = await getUser();
+    console.log(newSkylineId, user.user.id);
+    const response = await client
+        .from('cities')
+        .update({ skyline_id: newSkylineId })
+        .match({ user_id: user.user.id })
+        .single();
+    return checkError(response);
+}
+
+export async function updateCastle(newCastleId) {
+    const user = await getUser();
+    console.log(newCastleId, user.user.id);
+    const response = await client
+        .from('cities')
+        .update({ castle_id: newCastleId })
+        .match({ user_id: user.user.id })
+        .single();
+    return checkError(response);
+}

@@ -6,6 +6,8 @@ import {
     updateWaterfront,
     updateSkyline,
     updateCastle,
+    updateName,
+    updateSlogans
 } from '../fetch-utils.js';
 
 checkAuth();
@@ -22,7 +24,7 @@ const castleImgEl = document.querySelector('#castle-img');
 const sloganForm = document.querySelector('.slogan-form');
 const nameForm = document.querySelector('.name-form');
 const reportEl = document.querySelector('.report');
-
+console.log(sloganForm);
 logoutButton.addEventListener('click', () => {
     logout();
 });
@@ -66,7 +68,37 @@ castleDropdown.addEventListener('change', async() => {
     displayCity(newCastle);
 });
 
-function displayCity(city) {
+nameForm.addEventListener('submit', async(e) => {
+    e.preventDefault();
+
+    const data = new FormData(nameForm);
+
+    const name = data.get('name');
+
+    const newName = await updateName(name);
+
+    displayCity(newName);
+});
+
+sloganForm.addEventListener('submit', async(e) => {
+    e.preventDefault();
+
+    const data = new FormData(sloganForm);
+
+    const newSlogans = data.get('slogan-input');
+    console.log(newSlogans);
+    const city = await getCity();
+
+    city.slogans.push(newSlogans);
+
+    const updatedCity = await updateSlogans(city.slogans);
+
+    displayCity(updatedCity);
+});
+
+async function displayCity() {
+    const city = await getCity();
+
     cityNameEl.textContent = city.name;
 
     waterImgEl.src = `../assets/waterfront-${city.waterfront_id}.jpg`;
@@ -76,6 +108,8 @@ function displayCity(city) {
     castleImgEl.src = `../assets/castle-${city.castle_id}.jpg`;
 
     sloganListEl.textContent = '';
+
+    reportEl.textContent = `You have changed the waterfront ${waterfrontCount} times, the skyline ${skylineCount} times, the castle ${castleCount} times, and no one can forget your city's slogan: `;
 
     for (let slogan of city.slogans) {
         const sloganEl = document.createElement('p');

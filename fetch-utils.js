@@ -41,3 +41,29 @@ export async function logout() {
 function checkError({ data, error }) {
     return error ? console.error(error) : data;
 }
+
+export async function getCity() {
+    const response = await client
+        .from('cities')
+        .select()
+        .match({ user_id: client.auth.user().id, })
+        .single();
+    console.log(response);
+    return checkError(response);
+}
+
+export async function createDefaultCity() {
+    const response = await client
+        .from('cities')
+        .insert([
+            {
+                name: 'Seattle',
+                waterfront_id: 1,
+                skyline_id: 1,
+                castle_id: 1,
+                slogans: []
+            }
+        ]);
+    
+    return checkError(response);
+}

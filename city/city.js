@@ -2,7 +2,10 @@ import {
     checkAuth, 
     logout,
     getCity,
-    createDefaultCity
+    createDefaultCity,
+    updateWaterfront,
+    updateSkyline,
+    updateCastle,
 } from '../fetch-utils.js';
 
 checkAuth();
@@ -12,7 +15,7 @@ const waterfrontDropdown = document.querySelector('#waterfront-dropdown');
 const skylineDropdown = document.querySelector('#skyline-dropdown');
 const castleDropdown = document.querySelector('#castle-dropdown');
 const cityNameEl = document.querySelector('.city-name');
-const sloganListEl = document.querySelector('#slogan-list');
+const sloganListEl = document.querySelector('.slogan-list');
 const waterImgEl = document.querySelector('#waterfront-img');
 const skylineImgEl = document.querySelector('#skyline-img');
 const castleImgEl = document.querySelector('#castle-img');
@@ -32,18 +35,55 @@ window.addEventListener('load', async() => {
     const city = await getCity();
 
     if (!city) 
-    {await createDefaultCity();
-        refreshData();
+    { const newCity = await createDefaultCity();
+        displayCity(newCity);
     } else {
-        refreshData();
+        displayCity(city);
     }
 });
 
-function displayStats() {
-    reportEl.textContent = `You habe changes the waterfront ${waterfrontCount} times, the skyline ${skylineCount} times, the castle ${castleCount} times, and nobody can forget your cities slogan:`;
-}
+waterfrontDropdown.addEventListener('change', async() => {
+    waterfrontCount++;
 
-function refreshData() {
-    displayStats();
-    fetchAndDisplayCity();
+    const newWater = await updateWaterfront(waterfrontDropdown.value);
+
+    displayCity(newWater);
+});
+
+skylineDropdown.addEventListener('change', async() => {
+    skylineCount++;
+
+    const newSky = await updateSkyline(skylineDropdown.value);
+
+    displayCity(newSky);
+});
+
+castleDropdown.addEventListener('change', async() => {
+    castleCount++;
+
+    const newCastle = await updateCastle(castleDropdown.value);
+
+    displayCity(newCastle);
+});
+
+function displayCity(city) {
+    cityNameEl.textContent = city.name;
+
+    waterImgEl.src = `../assets/waterfront-${city.waterfront_id}.jpg`;
+
+    skylineImgEl.src = `../assets/skyline-${city.skyline_id}.jpg`;
+
+    castleImgEl.src = `../assets/castle-${city.castle_id}.jpg`;
+
+    sloganListEl.textContent = '';
+
+    for (let slogan of city.slogans) {
+        const sloganEl = document.createElement('p');
+
+        sloganEl.classList.add('slogan');
+
+        sloganEl.textContent = slogan;
+
+        sloganListEl.append(sloganEl);
+    }
 }

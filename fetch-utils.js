@@ -38,9 +38,7 @@ export async function logout() {
     return window.location.href = '../';
 }
 
-function checkError({ data, error }) {
-    return error ? console.error(error) : data;
-}
+
 
 export async function getCity() {
     const response = await client
@@ -48,7 +46,7 @@ export async function getCity() {
         .select()
         .match({ user_id: client.auth.user().id, })
         .single();
-    console.log(response);
+    
     return checkError(response);
 }
 
@@ -99,4 +97,31 @@ export async function updateCastle(newCastleId) {
         .match({ user_id: user.user.id })
         .single();
     return checkError(response);
+}
+
+export async function updateName(newName) {
+    const user = await getUser();
+
+    const response = await client
+        .from('cities')
+        .update({ name: newName })
+        .match({ user_id: user.user.id })
+        .single();
+    
+    return checkError(response);
+}
+
+export async function updateSlogans(slogansArray) {
+    const user = await getUser();
+
+    const response = await client
+        .from('cities')
+        .update({ slogans: slogansArray })
+        .match({ user_id: user.user.id })
+        .single();
+    
+    return checkError(response);
+}
+function checkError({ data, error }) {
+    return error ? console.error(error) : data;
 }

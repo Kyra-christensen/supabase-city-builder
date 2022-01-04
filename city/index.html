@@ -21,6 +21,20 @@
     </header>    
     <button id="logout">Logout</button>
     <main>
+        <section>
+            <h2>Welcome to beautiful <span class="city-name"></span></h2>
+        </section>
+        <div>
+            <form class="slogan-form">
+                 <input name="slogan-input"/>
+                 <button>Add slogan</button>
+            </form> 
+
+            <form class="name-form">
+                <input name="name" />
+                <button>Change Name</button>
+            </form>  
+         </div>
         <section class="dropdowns">
             <label>
                 Waterfront
@@ -62,19 +76,14 @@
             </div>
         </section>
 
-        <section class="slogans">
-            <div>
-               <label>
-                    New slogan
-                    <input id="slogan-input"/>
-               </label> 
-               <button id="slogan-button">Add a slogan</button>
-               <br>
-               <div class="change-count"></div>
-               <br>
-               <div class="slogan-list"></div>
-            </div>
-            
+        <section class="inputs">
+            <section class="report-section">
+                <div class="report"></div>
+            </section>
+            <section class="slogan-section">
+                <h3>Slogans:</h3>
+                <div class="slogan-list"></div>
+            </section>
             
         </section>
 

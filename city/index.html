@@ -21,8 +21,63 @@
     </header>    
     <button id="logout">Logout</button>
     <main>
-        <h1>You are logged in!</h1>
+        <section class="dropdowns">
+            <label>
+                Waterfront
+                <select id="waterfront-dropdown">
+                    <option value="1">Option 1</option>
+                    <option value="2">Option 2</option>
+                    <option value="3">Option 3</option>
+                </select>
+            </label>
+            
+            <label>
+                Skyline
+                <select id="skyline-dropdown">
+                    <option value="1">Option 1</option>
+                    <option value="2">Option 2</option>
+                    <option value="3">Option 3</option>
+                </select>
+            </label>
+
+            <label>
+                Castle
+                <select id="castle-dropdown">
+                    <option value="1">Option 1</option>
+                    <option value="2">Option 2</option>
+                    <option value="3">Option 3</option>
+                </select>
+            </label>
+        </section>
         
+        <section class="images">
+            <div class="waterfront-img">
+                <img id="waterfront-img" />
+            </div>
+            <div class="skyline-img">
+                <img id="skyline-img" />
+            </div>
+            <div class="castle-img">
+                <img id="castle-img" />
+            </div>
+        </section>
+
+        <section class="slogans">
+            <div>
+               <label>
+                    New slogan
+                    <input id="slogan-input"/>
+               </label> 
+               <button id="slogan-button">Add a slogan</button>
+               <br>
+               <div class="change-count"></div>
+               <br>
+               <div class="slogan-list"></div>
+            </div>
+            
+            
+        </section>
+
     </main>
     <footer>
         <div class="copy gutter-right">&copy; 2021 Alchemy Code Lab</div>

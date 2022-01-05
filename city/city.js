@@ -94,6 +94,7 @@ sloganForm.addEventListener('submit', async(e) => {
     const updatedCity = await updateSlogans(city.slogans);
 
     displayCity(updatedCity);
+    
 });
 
 async function displayCity() {
@@ -110,7 +111,8 @@ async function displayCity() {
     sloganListEl.textContent = '';
 
     reportEl.textContent = `You have changed the waterfront ${waterfrontCount} times, the skyline ${skylineCount} times, the castle ${castleCount} times, and no one can forget your city's slogan: `;
-
+    sloganListEl.textContent = '';
+    
     for (let slogan of city.slogans) {
         const sloganEl = document.createElement('p');
 

@@ -61,7 +61,8 @@ export async function createDefaultCity() {
                 castle_id: 1,
                 slogans: []
             }
-        ]);
+        ])
+        .single();
     
     return checkError(response);
 }

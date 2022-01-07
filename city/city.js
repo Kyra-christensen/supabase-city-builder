@@ -38,10 +38,11 @@ window.addEventListener('load', async() => {
 
     if (!city) 
     { const newCity = await createDefaultCity();
-        displayCity(newCity);
+        await displayCity(newCity);
     } else {
-        displayCity(city);
+        await displayCity(city);
     }
+    
 });
 
 waterfrontDropdown.addEventListener('change', async() => {
@@ -97,8 +98,8 @@ sloganForm.addEventListener('submit', async(e) => {
     
 });
 
-async function displayCity() {
-    const city = await getCity();
+async function displayCity(city) {
+    // const city = await getCity();
 
     cityNameEl.textContent = city.name;
 
@@ -111,6 +112,7 @@ async function displayCity() {
     sloganListEl.textContent = '';
 
     reportEl.textContent = `You have changed the waterfront ${waterfrontCount} times, the skyline ${skylineCount} times, the castle ${castleCount} times, and no one can forget your city's slogan: `;
+    
     sloganListEl.textContent = '';
     
     for (let slogan of city.slogans) {
